@@ -1,0 +1,1092 @@
+:root {
+  --bg-page: #f7f7f7;
+  --bg-card: #ffffff;
+  --bg-panel: #ffffff;
+  --bg-inner-card: #f7f7f7;
+  --bg-inner-hover: #efefef;
+  --bg-capsule: #efefef;
+  --bg-sheet: #ffffff;
+  --bg-pill-btn: #ebf1ff;
+  --text-primary: #191919;
+  --text-secondary: #8c8c8c;
+  --text-muted: #b2b2b2;
+  --accent-blue: #3774ff;
+  --accent-blue-text: #3774ff;
+  --accent-green: #32c759;
+  --accent-orange: #ff9500;
+  --accent-red: #ff3b30;
+  --divider: rgba(0, 0, 0, 0.06);
+  --radius-card: 14px;
+  --radius-sheet: 22px;
+  --safe-bottom: env(safe-area-inset-bottom, 14px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+[data-theme="dark"] {
+  --bg-page: #000000;
+  --bg-card: #191919;
+  --bg-panel: #000000;
+  --bg-inner-card: #191919;
+  --bg-inner-hover: #242424;
+  --bg-capsule: #191919;
+  --bg-sheet: #1e1e1e;
+  --bg-pill-btn: #1f2e4d;
+  --text-primary: #e8e8e8;
+  --text-secondary: #757575;
+  --text-muted: #595959;
+  --accent-blue: #3774ff;
+  --accent-blue-text: #4a85ff;
+  --divider: rgba(255, 255, 255, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #e5e5ea;
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: var(--bg-page);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--safe-top);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.12);
+  overflow-x: hidden;
+}
+
+@media (max-width: 480px) {
+  html, body {
+    background-color: var(--bg-page);
+  }
+  .app-shell {
+    max-width: 100%;
+    box-shadow: none;
+  }
+}
+
+/* Top Navigation Bar (1:1 Mi Home iOS Header) */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 6px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--bg-page);
+}
+
+.nav-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-icon-btn:active {
+  opacity: 0.55;
+}
+
+.nav-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-title {
+  font-size: 16.5px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+/* Centered Floating Telemetry Capsule (Exact match to 11/15 13:23 + Battery Pill) */
+.telemetry-capsule-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px 4px;
+}
+
+.telemetry-capsule {
+  background: var(--bg-capsule);
+  border-radius: 28px;
+  padding: 8px 26px;
+  min-width: 230px;
+  height: 52px;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.capsule-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.capsule-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+}
+
+.capsule-battery-img {
+  height: 15px;
+  width: auto;
+  display: block;
+}
+
+.capsule-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: 12px;
+  white-space: nowrap;
+}
+
+/* Map Stage (Full Bleed Light Area with Real Map + Single Right Map Button) */
+.map-stage {
+  position: relative;
+  width: 100%;
+  height: 410px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 10px 16px;
+}
+
+.map-image-container {
+  position: relative;
+  width: 92%;
+  max-width: 375px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .map-image {
+  filter: brightness(0.92) contrast(1.04);
+}
+
+/* Interactive Invisible Room Hitboxes over the Real Map */
+.room-hitbox {
+  position: absolute;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, border 0.15s;
+}
+
+.room-hitbox.selected-room {
+  background: rgba(55, 116, 255, 0.22);
+  border: 2px solid #3774ff;
+}
+
+.room-badge {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3774ff;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-hitbox.selected-room .room-badge {
+  display: flex;
+}
+
+/* Floating Right Sidebar Button (Map Only — 3D Removed as requested) */
+.map-right-pill {
+  position: absolute;
+  right: 14px;
+  top: 16px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  width: 38px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.map-right-pill:active {
+  transform: scale(0.94);
+}
+
+.map-right-pill img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* Two White Action Cards Above Bottom Sheet: [База] [Начать уборку] */
+.primary-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  padding: 0 12px 12px;
+}
+
+.action-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  height: 68px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border: none;
+  color: var(--text-primary);
+  text-align: left;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+  transition: transform 0.1s, opacity 0.15s;
+}
+
+.action-card:active {
+  transform: scale(0.98);
+}
+
+.action-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.action-card-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.action-card-texts {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.action-card-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.action-card-sub {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.chevron-right {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Mi Home Bottom White Sheet Container */
+.mihome-bottom-panel {
+  background: var(--bg-panel);
+  border-radius: 20px 20px 0 0;
+  padding: 12px 12px calc(24px + var(--safe-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Dual Split Bar: [Зона: Вся квартира > | Режим: Сухая и влажная >] */
+.split-selector-card {
+  background: var(--bg-inner-card);
+  border-radius: var(--radius-card);
+  height: 62px;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: center;
+}
+
+.split-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--divider);
+}
+
+.split-half {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  text-align: left;
+  height: 100%;
+  border-radius: var(--radius-card);
+}
+
+.split-half:active {
+  background: var(--bg-inner-hover);
+}
+
+.split-half-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.split-half-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.split-half-sub {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Custom Cleaning Card (Индивидуальная уборка) */
+.custom-clean-card {
+  background: var(--bg-inner-card);
+  border-radius: var(--radius-card);
+  padding: 16px 18px 22px;
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-clean-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-clean-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.custom-clean-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 12px;
+}
+
+.custom-clean-empty img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.custom-clean-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  max-width: 250px;
+  line-height: 1.4;
+  margin-bottom: 18px;
+}
+
+.btn-create-pill {
+  background: var(--bg-pill-btn);
+  color: var(--accent-blue-text);
+  border: none;
+  border-radius: 18px;
+  padding: 8px 26px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-create-pill:active {
+  transform: scale(0.96);
+}
+
+.custom-plans-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.custom-plan-item {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-plan-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.custom-plan-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.custom-plan-meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.custom-plan-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-plan-run {
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-plan-del {
+  background: rgba(255, 59, 48, 0.12);
+  color: var(--accent-red);
+  border: none;
+  border-radius: 12px;
+  padding: 6px 9px;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+/* Bottom Quick Links Card (Уборка по расписанию + Умные сценарии) */
+.bottom-links-card {
+  background: var(--bg-inner-card);
+  border-radius: var(--radius-card);
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.bottom-link-row:active {
+  background: var(--bg-inner-hover);
+}
+
+.bottom-link-left {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.bottom-link-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.bottom-link-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bottom-link-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.bottom-link-sub {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+/* Slide-Over Full-Screen Views (Settings & Subpages) */
+.page-overlay {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateX(105%);
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  background: var(--bg-page);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .page-overlay {
+    max-width: 100%;
+  }
+}
+
+.page-overlay.open {
+  transform: translateX(-50%) translateX(0%);
+}
+
+.page-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 16px calc(36px + var(--safe-bottom));
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Settings List Styling */
+.settings-section {
+  padding: 12px 0 6px;
+  border-bottom: 1px solid var(--divider);
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-group-title {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  padding: 0 4px;
+  font-weight: 500;
+}
+
+.settings-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 4px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  gap: 12px;
+}
+
+.settings-row:active {
+  opacity: 0.65;
+}
+
+.settings-row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-row-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.settings-row-desc {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.38;
+}
+
+.settings-row-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.settings-row-val {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+/* Xiaomi iOS Toggle Switch */
+.mi-switch {
+  position: relative;
+  width: 46px;
+  height: 25px;
+  border-radius: 13px;
+  background: #d1d1d6;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+}
+
+[data-theme="dark"] .mi-switch {
+  background: #333336;
+}
+
+.mi-switch.on {
+  background: var(--accent-blue);
+}
+
+.mi-switch::after {
+  content: "";
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.mi-switch.on::after {
+  transform: translateX(21px);
+}
+
+/* Bottom Sheets */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 80;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  width: 100%;
+  max-width: 430px;
+  max-height: 86vh;
+  background: var(--bg-sheet);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  padding: 18px 18px calc(22px + var(--safe-bottom));
+  transform: translateY(100%);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sheet-backdrop.open .bottom-sheet {
+  transform: translateY(0%);
+}
+
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sheet-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sheet-close-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-inner-card);
+  border: none;
+  color: var(--text-secondary);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mode Selector Grids */
+.mode-group-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mode-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.mode-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mode-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.mode-option-btn {
+  background: var(--bg-inner-card);
+  border: 1.5px solid transparent;
+  border-radius: 13px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.mode-option-btn img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.mode-option-btn span {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.mode-option-btn.active {
+  background: rgba(55, 116, 255, 0.12);
+  border-color: var(--accent-blue);
+  color: var(--accent-blue-text);
+}
+
+/* Station 4-Button Grid */
+.station-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.station-action-btn {
+  background: var(--bg-inner-card);
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  padding: 13px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.station-action-btn.active {
+  background: rgba(55, 116, 255, 0.14);
+  border-color: var(--accent-blue);
+}
+
+.station-action-btn img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+/* Subcards & Consumables */
+.subcard {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 14px 16px;
+  margin-bottom: 11px;
+}
+
+.consumable-item {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 15px 16px;
+  margin-bottom: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.consumable-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.consumable-title {
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.consumable-pct {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-inner-card);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent-green);
+}
+
+.consumable-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.btn-small-outline {
+  background: var(--bg-pill-btn);
+  color: var(--accent-blue-text);
+  border: none;
+  border-radius: 13px;
+  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* History Stats */
+.history-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  padding: 15px 10px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.history-stat-val {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-stat-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.history-row {
+  background: var(--bg-card);
+  border-radius: 13px;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Radio Option Cards */
+.radio-card {
+  background: var(--bg-card);
+  border: 1.5px solid transparent;
+  border-radius: 13px;
+  padding: 13px 15px;
+  margin-bottom: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.radio-card.selected {
+  border-color: var(--accent-blue);
+  background: rgba(55, 116, 255, 0.08);
+}
+
+.radio-dot {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.radio-card.selected .radio-dot {
+  border-color: var(--accent-blue);
+  background: var(--accent-blue);
+}
+
+.radio-card.selected .radio-dot::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* Remote Control D-Pad */
+.dpad-wrap {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--bg-inner-card);
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  padding: 14px;
+}
+
+.dpad-btn {
+  background: var(--bg-card);
+  border: none;
+  border-radius: 14px;
+  color: var(--text-primary);
+  font-size: 19px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dpad-btn:active {
+  background: var(--accent-blue);
+  color: #fff;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(28, 28, 30, 0.92);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  max-width: 88%;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

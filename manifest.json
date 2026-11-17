@@ -1,0 +1,24 @@
+{
+  "name": "Mijia Robot Vacuum M30 Pro",
+  "short_name": "M30 Pro",
+  "description": "Русскоязычный плагин управления роботом-пылесосом Xiaomi Mijia M30 Pro",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f7f7",
+  "theme_color": "#f7f7f7",
+  "orientation": "portrait",
+  "lang": "ru-RU",
+  "icons": [
+    {
+      "src": "app_icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "app_icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
